@@ -40,8 +40,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.game_teams.headers
   end
 
-  def test_it_can_group_games_by_season
-    
+  def test_average_goals_by_season
+    expected = {"20142015"=>4.4, "20172018"=>2.0}
+    assert_equal expected, @stats.average_goals_by_season
+  end
+
+  def test_total_avg_goals
+    assert_equal 4.0, @stats.total_avg_goals
+  end
+
 
 
 

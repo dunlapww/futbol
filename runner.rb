@@ -21,7 +21,7 @@ locations_sample = {
 }
 
 stat_tracker_sample = StatTracker.from_csv(locations_sample)
-# stat_tracker = StatTracker.from_csv(locations)
+stat_tracker = StatTracker.from_csv(locations)
 
 
 
@@ -31,10 +31,5 @@ stat_tracker_sample = StatTracker.from_csv(locations_sample)
 # puts ""
 # puts stat_tracker_sample.average_goals_per_game
 # print stat_tracker_sample.season_group
-print stat_tracker_sample.goals_by_season
-puts  ""
-print stat_tracker_sample.games_by_season
-puts  ""
-print stat_tracker_sample.average_goals_by_season
-puts  ""
-print stat_tracker_sample.total_avg_goals
+puts stat_tracker.average_goals_by_season
+puts stat_tracker.total_avg_goals
