@@ -40,6 +40,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.game_teams.headers
   end
 
+  def test_it_can_group_games_by_season
+    
 
 
 

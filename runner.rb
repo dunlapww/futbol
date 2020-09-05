@@ -23,4 +23,18 @@ locations_sample = {
 stat_tracker_sample = StatTracker.from_csv(locations_sample)
 # stat_tracker = StatTracker.from_csv(locations)
 
-require 'pry'; binding.pry
+
+
+# print stat_tracker_sample.total_home_goals
+# print stat_tracker_sample.total_away_goals
+# print stat_tracker_sample.total_games
+# puts ""
+# puts stat_tracker_sample.average_goals_per_game
+# print stat_tracker_sample.season_group
+print stat_tracker_sample.goals_by_season
+puts  ""
+print stat_tracker_sample.games_by_season
+puts  ""
+print stat_tracker_sample.average_goals_by_season
+puts  ""
+print stat_tracker_sample.total_avg_goals
