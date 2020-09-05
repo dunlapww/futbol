@@ -24,12 +24,5 @@ stat_tracker_sample = StatTracker.from_csv(locations_sample)
 stat_tracker = StatTracker.from_csv(locations)
 
 
-
-# print stat_tracker_sample.total_home_goals
-# print stat_tracker_sample.total_away_goals
-# print stat_tracker_sample.total_games
-# puts ""
-# puts stat_tracker_sample.average_goals_per_game
-# print stat_tracker_sample.season_group
 puts stat_tracker.average_goals_by_season
 puts stat_tracker.total_avg_goals
