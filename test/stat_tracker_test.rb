@@ -153,6 +153,40 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.ratio(2,3)
   end
 
+  def test_it_can_filter_hoa_games
+    assert @stats.home_or_away_games("home").all? {|game| game.hoa == "home"}
+    assert @stats.home_or_away_games("away").all? {|game| game.hoa == "away"}
+  end
+
+  def test_it_can_group_gameteams_by_team_id
+    assert @stats.hoa_games_by_team_id("home").keys.all? {|team| team.class == Integer}
+    @stats.hoa_games_by_team_id("home").values.each do |games|
+      assert games.all? {|game| game.class == GameTeam}
+    end
+  end
+
+  def test_it_can_calc_gameteams_total_score
+    assert_equal 211, @stats.total_score
+  end
+
+  def test_it_can_calc_total_game_teams
+    assert_equal 106, @stats.total_game_teams
+  end
+
+  def test_it_can_calc_avg_game_team_score
+    assert_equal 1.99, @stats.avg_score
+  end
+
+  def test_it_can_calc_lowest_gameteam_id
+    assert_equal 1, @stats.lowest_scoring_team_id("home")
+    assert_equal 4, @stats.lowest_scoring_team_id("away")
+  end
+
+  def test_it_can_translate_gameteam_id_to_name
+    assert_equal "Chicago Fire", @stats.team_id_to_team_name(4)
+  end
+
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -194,6 +228,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_best_offense
     assert_equal "FC Dallas", @stats.best_offense
+  end
+
+  def test_it_knows_lowest_scoring_home_team
+    assert_equal "Atlanta United", @stats.lowest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor_team
   end
 
 
