@@ -26,7 +26,7 @@ Schedule Expectations (When are we available to work together and individually? 
 - Joshua: 1st weekend gone and open 2nd except Sundays 4 to 8 pm.
 - Will: Flexible weekend commitments. Tuesdays (4-6 commitment but flexible)
 - During weeK: Stop around 9 or 10 pm each night.
-- Keep 5 to 7pm open for a zoom-like study hall.
+- We will plan to meet M-F from 5 to 7pm open for a checkin and zoom-like study hall.  It's understandable that not everyone will be able to make every meeting but if  you are unable to attend, we ask that team member communicate to team in advance and provide the next time they will be able to checkin.
 - Have at least one zoom check-in per day (usually during )
 
 Communication Expectations (How and often will we communicate? How do we keep lines of communication open? How will we make decisions as a team? How will we communicate about our emotional and mental well-being with each other?):
@@ -56,7 +56,7 @@ Workload Expectations (What features do we each want to work on?):
 Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques):
 
 1) Create work branch, work, commit regularly, push branch when finished, submit PR when working branch finished
-2) A minimum of 2 people look at/comment on PR before merging
+2) Pull requests cannot be approved by submitter of pull request.  A minimum of 2 people must review and approve a pull request before merge into main (3 people preferred, but to balance thoroughness with expediency, the second person to approve should plan on merging) look at/comment on PR before merging
   *Send out slack message when submit a PR*
   *Utilize github slackbot to send automatic updates*
   *Respond to PR before next scheduled meetup.*
