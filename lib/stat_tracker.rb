@@ -221,6 +221,45 @@ class StatTracker
     team_names_by_team_id(best[0])
   end
 
+  def home_games_by_team
+    home_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def highest_scoring_home_team
+    home_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    return @teams.select do |team|
+      team.team_id == id
+    end
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def total_game_teams(filtered_game_teams = @game_teams)
+    filtered_game_teams.count
+  end
+
+  def home_games
+    home_games = @game_teams.select do |game|
+      game.hoa == "home"
+    end
+    home_games
+  end
+
 # ~~~ SEASON METHODS~~~
 
 # ~~~ TEAM METHODS~~~
