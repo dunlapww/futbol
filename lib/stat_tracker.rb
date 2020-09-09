@@ -207,6 +207,33 @@ class StatTracker
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
+  def game_ids_by_season(season)
+    filter_by_season(season).map do |game|
+      game.game_id
+    end.sort
+  end
+
+  def team_tackles(season)
+    team_season_tackles = {}
+    games = @game_teams.find_all do |game|
+      game_ids_by_season(season).include?(game.game_id)
+    end
+    games.each do |game|
+      if team_season_tackles[game.team_id]
+        team_season_tackles[game.team_id] += game.tackles
+      else
+        team_season_tackles[game.team_id] = game.tackles
+      end
+    end
+    team_season_tackles
+  end
+
+  def team_identifier(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -296,6 +323,18 @@ class StatTracker
     @game_teams.find do |game_team|
       game_team.team_id == worst_team(season)
     end.head_coach
+  end
+
+  def most_tackles(season)
+    team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
+  end
+
+  def fewest_tackles(season)
+    team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
   end
 
 # ~~~ TEAM METHODS~~~
