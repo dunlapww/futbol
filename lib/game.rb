@@ -26,7 +26,7 @@ class Game
     # @venue_link = data[:venue_link]
   end
 
-  def sum_score
+  def total_score
     @away_goals + @home_goals
   end
 

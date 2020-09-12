@@ -7,8 +7,8 @@ class GameTeamTest < Minitest::Test
   def setup
 
     data = {
-      game_id: 2014020006,
-      team_id: 1,
+      game_id: "2014020006",
+      team_id: "1",
       hoa: "away",
       result: "WIN",
       settled_in: "REG",
@@ -28,6 +28,11 @@ class GameTeamTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of GameTeam, @game_team_1
+  end
+
+  def test_it_knows_a_home_and_away_game
+    assert_equal false, @game_team_1.home_game?
+    assert @game_team_1.away_game?
   end
 
 end

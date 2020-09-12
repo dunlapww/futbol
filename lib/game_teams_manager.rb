@@ -12,17 +12,17 @@ class GameTeamsManager
     create_game_teams(path)
   end
 
-  def create_game_teams(path)
-    @game_teams = path.map do |data|
-      GameTeam.new(data, self)
+  def create_game_teams(game_teams_table)
+    @game_teams = game_teams_table.map do |data|
+      GameTeam.new(game_teams_table)
     end
   end
 
-  def home_or_away_games(where = "home")
-    @game_teams.select do |game|
-      game.hoa == where
-    end
-  end
+  
+
+
+
+
 
 
 end

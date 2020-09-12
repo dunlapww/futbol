@@ -27,4 +27,6 @@ class GameTest < Minitest::Test
     assert @game_1.visitor_is_winner?
   end
 
+  
+
 end
