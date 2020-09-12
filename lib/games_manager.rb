@@ -46,8 +46,8 @@ include Manageable
     ratio(wins, total_games)
   end
 
-  def total_games(filtered_games = @games)
-    filtered_games.count
+  def total_games
+    @games.count
   end
 
 
