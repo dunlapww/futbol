@@ -17,12 +17,4 @@ class GameTeamsManager
       GameTeam.new(game_teams_table)
     end
   end
-
-  
-
-
-
-
-
-
 end

@@ -95,13 +95,4 @@ include Manageable
       avg_score
     end[0]
   end
-
-
-
-
-
-
-
-
-
 end

@@ -56,8 +56,4 @@ class GamesManagerTest < Minitest::Test
   def test_it_can_get_visitor_id_w_min_avg_score
     assert_equal 4, @games_manager.visitor_id_w_min_avg_score
   end
-
-
-
-
 end
