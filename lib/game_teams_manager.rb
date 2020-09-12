@@ -18,4 +18,11 @@ class GameTeamsManager
     end
   end
 
+  def home_or_away_games(where = "home")
+    @game_teams.select do |game|
+      game.hoa == where
+    end
+  end
+
+
 end

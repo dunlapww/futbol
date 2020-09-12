@@ -46,8 +46,14 @@ include Manageable
     ratio(wins, total_games)
   end
 
-  def total_games
-    @games.count
+  def total_games(filtered_games = @games)
+    filtered_games.count
   end
+
+  def total_visitor_score(filtered_games = @games)
+    filtered_games.away_goals.sum
+  end
+
+
 
 end

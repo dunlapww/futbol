@@ -18,8 +18,7 @@ class GameTeam
               :giveaways,
               :takeaways
 
-  def initialize(data, game_teams_manager)
-    @game_teams_manager = game_teams_manager
+  def initialize(data)
     @game_id = data[:game_id]
     @team_id = data[:team_id]
     @hoa = data[:hoa]
@@ -36,5 +35,14 @@ class GameTeam
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
   end
+
+  def home_game?
+    @hoa == "home"
+  end
+
+  def away_game?
+    @hoa == "away"
+  end
+
 
 end
