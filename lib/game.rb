@@ -37,7 +37,4 @@ class Game
   def visitor_is_winner?
     @away_goals > @home_goals
   end
-
-
-
 end

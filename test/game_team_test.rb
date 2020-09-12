@@ -34,5 +34,4 @@ class GameTeamTest < Minitest::Test
     assert_equal false, @game_team_1.home_game?
     assert @game_team_1.away_game?
   end
-
 end
