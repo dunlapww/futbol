@@ -37,8 +37,25 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_average_scores
-    assert_equal 4, @games_manager.average_game_scores
+    assert_equal 3.98, @games_manager.average_game_scores
   end
+
+  def test_it_can_group_games_by_away_team_id
+    skip
+    assert_equal 7, @games_manager.games_by_visitor
+  end
+
+  def test_it_can_average_visitor_scores
+    skip
+    assert_equal 3.2, @games_manager.average_visitor_score
+  end
+
+  def test_it_can_get_visitor_w_min_avg_score
+    require "pry"; binding.pry
+    assert_equal 24, @games_manager.min_visitor_score
+  end
+
+
 
 
 end

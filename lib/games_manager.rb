@@ -46,15 +46,40 @@ include Manageable
     ratio(wins, total_games)
   end
 
-  def total_games
-    @games.count
+  def total_games(filtered_games = @games)
+    filtered_games.count
   end
 
-  def total_game_scores
-    @games.reduce(0) do |sum, game|
+  def total_game_scores(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
       sum += game.total_game_score
     end
   end
+
+  def average_game_scores(filtered_games = @games)
+    ratio(total_game_scores(filtered_games), total_games(filtered_games))
+  end
+
+  def games_by_visitor
+    @games.group_by do |game|
+      game.away_team_id
+    end
+  end
+
+  def average_visitor_score
+    avg_vis_score = {}
+    games_by_visitor.each do |visitor_id, games|
+      avg_vis_score[visitor_id] = average_game_scores(games)
+    end
+    avg_vis_score
+  end
+
+  def min_visitor_score
+    average_visitor_score.min_by do |visitor_id, avg_score|
+      avg_score
+    end[0]
+  end
+
 
 
 
