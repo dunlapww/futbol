@@ -32,5 +32,9 @@ class GamesManagerTest < Minitest::Test
     assert_equal 53, @games_manager.total_games
   end
 
+  def test_it_can_sum_game_scores
+    assert_equal 300, @games_manager.total_game_scores
+  end
+
 
 end

@@ -50,5 +50,15 @@ include Manageable
     @games.count
   end
 
+  def total_game_scores
+    @games.reduce(0) do |sum, game|
+      sum += game.total_game_score
+    end
+  end
+
+
+
+
+
 
 end
