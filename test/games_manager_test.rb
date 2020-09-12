@@ -28,5 +28,10 @@ class GamesManagerTest < Minitest::Test
     assert_equal 0.30, @games_manager.percentage_visitor_wins
   end
 
+  def test_it_can_count_games
+    assert_equal 53, @games_manager.total_games
+  end
+
+
 
 end

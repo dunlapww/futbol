@@ -50,10 +50,5 @@ include Manageable
     filtered_games.count
   end
 
-  def total_visitor_score(filtered_games = @games)
-    filtered_games.away_goals.sum
-  end
-
-
 
 end
