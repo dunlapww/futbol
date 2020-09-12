@@ -32,8 +32,10 @@ class GamesManagerTest < Minitest::Test
     assert_equal 53, @games_manager.total_games
   end
 
-  def test_it_can_sum_game_scores
+  def test_it_can_sum_goals
     assert_equal 211, @games_manager.total_game_scores
+    assert_equal 95, @games_manager.total_away_goals
+    assert_equal 116, @games_manager.total_home_goals
   end
 
   def test_it_can_average_scores
@@ -41,18 +43,18 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_group_games_by_away_team_id
-    skip
-    assert_equal 7, @games_manager.games_by_visitor
+    assert_equal 9, @games_manager.games_by_visitor[6].size
+    assert @games_manager.games_by_visitor[6].all? do |game|
+      game.hoa == "away"
+    end
   end
 
   def test_it_can_average_visitor_scores
-    skip
-    assert_equal 3.2, @games_manager.average_visitor_score
+    assert_equal 2.22, @games_manager.avg_goals_by_visitor[6]
   end
 
-  def test_it_can_get_visitor_w_min_avg_score
-    require "pry"; binding.pry
-    assert_equal 24, @games_manager.min_visitor_score
+  def test_it_can_get_visitor_id_w_min_avg_score
+    assert_equal 4, @games_manager.visitor_id_w_min_avg_score
   end
 
 

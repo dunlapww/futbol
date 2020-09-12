@@ -10,7 +10,7 @@ class StatTracker
     load_managers(locations)
   end
 
-  def self.from_csv(locations = {games: './data/games.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
+  def self.from_csv(locations = {games: './data/games_sample.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
     StatTracker.new(locations)
   end
 

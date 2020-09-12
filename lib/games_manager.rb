@@ -56,8 +56,24 @@ include Manageable
     end
   end
 
+  def total_away_goals(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
+      sum += game.away_goals
+    end
+  end
+
+  def total_home_goals(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
+      sum += game.home_goals
+    end
+  end
+
   def average_game_scores(filtered_games = @games)
     ratio(total_game_scores(filtered_games), total_games(filtered_games))
+  end
+
+  def average_away_goals(filtered_games = @games)
+    ratio(total_away_goals(filtered_games), total_games(filtered_games))
   end
 
   def games_by_visitor
@@ -66,16 +82,16 @@ include Manageable
     end
   end
 
-  def average_visitor_score
+  def avg_goals_by_visitor
     avg_vis_score = {}
     games_by_visitor.each do |visitor_id, games|
-      avg_vis_score[visitor_id] = average_game_scores(games)
+      avg_vis_score[visitor_id] = average_away_goals(games)
     end
     avg_vis_score
   end
 
-  def min_visitor_score
-    average_visitor_score.min_by do |visitor_id, avg_score|
+  def visitor_id_w_min_avg_score
+    avg_goals_by_visitor.min_by do |visitor_id, avg_score|
       avg_score
     end[0]
   end
