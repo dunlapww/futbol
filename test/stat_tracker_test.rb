@@ -100,16 +100,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.game_ids_by_season("20122013")
   end
 
-  def test_it_can_show_total_tackles_per_team_per_season ###
-    expected = {
-      "1" => 30,
-      "4" => 108,
-      "6" => 31,
-      "14" => 17
-      # 26 => 0
-    }
-    assert_equal expected, @stats.team_tackles("20122013")
-  end
+  # def test_it_can_show_total_tackles_per_team_per_season ###
+  #   expected = {
+  #     "1" => 30,
+  #     "4" => 108,
+  #     "6" => 31,
+  #     "14" => 17
+  #     # 26 => 0
+  #   }
+  #   assert_equal expected, @stats.team_tackles("20122013")
+  # end
 
   def test_it_can_get_average_scores_per_team
     expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
@@ -130,9 +130,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 45, @stats.total_wins
   end
 
-  def test_it_can_filter_gameteams_by_team_id
-    assert @stats.games_by_team("6").all? {|gameteam| gameteam.team_id == "6"}
-  end
+  # def test_it_can_filter_gameteams_by_team_id
+  #   assert @stats.games_by_team("6").all? {|gameteam| gameteam.team_id == "6"}
+  # end
 
   def test_it_can_get_a_game
     assert_equal "2014021002", @stats.get_game("2014021002").game_id
@@ -170,10 +170,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.shots_per_team_id("20132014")
   end
 
-  def test_it_can_find_goals_per_season
-    expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
-    assert_equal expected, @stats.season_goals("20132014")
-  end
+  # def test_it_can_find_goals_per_season
+  #   expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
+  #   assert_equal expected, @stats.season_goals("20132014")
+  # end
 
   def test_shots_per_goal_per_season_for_given_season
     expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}

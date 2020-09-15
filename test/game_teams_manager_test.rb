@@ -198,4 +198,10 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "FC Dallas", @game_teams_manager.best_offense
   end
 
+  def test_it_can_find_goals_per_season
+    expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
+    assert_equal expected, @game_teams_manager.season_goals("20132014")
+  end
+
+
 end
