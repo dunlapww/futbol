@@ -112,7 +112,7 @@ class GameTeamsManager
     fave_opp_id = highest_lowest_win_percentage(hash, :max_by)
     @stat_tracker.fetch_team_identifier(fave_opp_id)
   end
-
+  
   def rival(team_id)
     hash = game_teams_by_opponent(team_id)
     rival_id = highest_lowest_win_percentage(hash, :min_by)
