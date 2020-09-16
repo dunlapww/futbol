@@ -155,5 +155,5 @@ class StatTracker
   def rival(team_id)
     @game_teams_manager.rival(team_id)
   end
-  
+
 end

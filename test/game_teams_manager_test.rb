@@ -129,20 +129,30 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Atlanta United", @game_teams_manager.most_least_accurate_team("20132014", :max_by)
   end
 
+  def test_it_can_get_game_teams_by_team_id
+    assert_equal ["4", "14", "1", "6", "26"], @game_teams_manager.game_teams_by_team_id("20132014").keys
+    assert_equal 5, @game_teams_manager.game_teams_by_team_id("20132014")["4"].size
+    assert_equal 4, @game_teams_manager.game_teams_by_team_id("20132014")["14"].size
+    assert_equal 5, @game_teams_manager.game_teams_by_team_id("20132014")["1"].size
+    assert_equal 4, @game_teams_manager.game_teams_by_team_id("20132014")["6"].size
+    assert_equal 6, @game_teams_manager.game_teams_by_team_id("20132014")["26"].size
+  end
+
   def test_it_can_get_games_from_season_game_ids
     season_game_ids = @game_teams_manager.game_ids_per_season("20132014")
     assert_equal GameTeam, @game_teams_manager.find_game_teams(season_game_ids)[0].class
     assert_equal (season_game_ids.count * 2), @game_teams_manager.find_game_teams(season_game_ids).count
   end
 
-  def test_it_can_get_shots_per_team
-    expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
-    assert_equal expected, @game_teams_manager.shots_per_team_id("20132014")
+  def test_it_can_calculate_shot_ratios
+    expected = {"4"=>3.2, "14"=>2.8889, "1"=>3.8571, "6"=>2.4, "26"=>3.6364}
+    assert_equal expected, @game_teams_manager.team_shot_ratios("20132014")
   end
 
-  def test_shots_per_goal_per_season_for_given_season
-    expected = {"4"=>3.20, "14"=>2.889, "1"=>3.857, "6"=>2.40, "26"=>3.636}
-    assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
+  def test_it_can_get_total_shots
+    expected = 149
+    actual = @game_teams_manager.total_shots(@game_teams_manager.game_teams_by_season("20132014"))
+    assert_equal expected, actual
   end
 
   def test_it_can_calculate_total_wins

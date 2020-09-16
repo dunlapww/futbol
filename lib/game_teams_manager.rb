@@ -23,9 +23,8 @@ class GameTeamsManager
   end
 
   def game_teams_by_season(season)
-    game_ids = @stat_tracker.fetch_game_ids_by_season(season)
-    @game_teams.find_all do |game|
-      game_ids.include?(game.game_id)
+    @game_teams.select do |gameteam|
+      gameteam.game_id[0..3] == season[0..3]
     end
   end
 
@@ -133,32 +132,29 @@ class GameTeamsManager
     end
   end
 
-  def shots_per_team_id(season)
-    game_search = find_game_teams(game_ids_per_season(season))
-    game_search.reduce(Hash.new(0)) do |results, game|
-      results[game.team_id] += game.shots
-      results
+  def game_teams_by_team_id(season)
+    game_teams_by_season(season).group_by do |gameteam|
+      gameteam.team_id
     end
   end
 
-  def season_goals(season)
-    specific_season = @stat_tracker.season_group[season]
-    specific_season.reduce(Hash.new(0)) do |season_goals, game|
-      season_goals[game.away_team_id.to_s] += game.away_goals
-      season_goals[game.home_team_id.to_s] += game.home_goals
-      season_goals
-    end
+  def team_shot_ratios(season)
+    game_teams_by_team_id(season).map do |team_id,game_teams|
+      [team_id, (total_shots(game_teams).to_f / total_score(game_teams)).round(4)]
+    end.to_h
   end
 
-  def shots_per_goal_per_season(season)
-    season_goals(season).merge(shots_per_team_id(season)) do |team_id, goals, shots|
-      ratio(shots, goals, 3)
+  def total_shots(game_teams = @game_teams)
+    game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.shots
     end
   end
 
   def most_least_accurate_team(season, method_arg)
-    most_accurate = shots_per_goal_per_season(season).method(method_arg).call { |team, avg| avg}
-    @stat_tracker.fetch_team_identifier(most_accurate[0])
+    team_id = team_shot_ratios(season).method(method_arg).call do |team_id, shot_ratio|
+      shot_ratio
+    end[0]
+    @stat_tracker.fetch_team_identifier(team_id)
   end
 
   def total_wins(game_teams)
@@ -196,8 +192,7 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(team[0])
   end
 
-  def avg_score(filtered_game_teams = @game_teams)
-    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  def avg_score(game_teams = @game_teams)
+    ratio(total_score(game_teams), total_game_teams(game_teams))
   end
-
 end
