@@ -145,12 +145,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 6, @game_teams_manager.game_teams_by_team_id("20132014")["26"].size
   end
 
-  def test_it_can_get_games_from_season_game_ids
-    season_game_ids = @game_teams_manager.game_ids_per_season("20132014")
-    assert_equal GameTeam, @game_teams_manager.find_game_teams(season_game_ids)[0].class
-    assert_equal (season_game_ids.count * 2), @game_teams_manager.find_game_teams(season_game_ids).count
-  end
-
   def test_it_can_calculate_shot_ratios
     expected = {"4"=>3.2, "14"=>2.8889, "1"=>3.8571, "6"=>2.4, "26"=>3.6364}
     assert_equal expected, @game_teams_manager.team_shot_ratios("20132014")
@@ -207,6 +201,10 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_best_offense
     assert_equal "FC Dallas", @game_teams_manager.best_worst_offense(:max_by)
+  end
+
+  def test_it_can_calculate_a_ratio
+    assert_equal 0.67, @game_teams_manager.ratio(2,3)
   end
 
 end

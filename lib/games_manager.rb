@@ -93,7 +93,7 @@ class GamesManager
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
+    ratio(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
   def all_seasons
