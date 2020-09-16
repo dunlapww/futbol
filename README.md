@@ -27,4 +27,5 @@ GamesManager  TeamsManager  GameTeamsManager  >
 * Absolutely yes. Math is hard, first of all.
 * The process required a lot of reading in to what the Spec wanted from us, plus learning how to retool the basic structure of our repo, how to create rake-related files, how to work with the gem "simplecov," and how to understand both what is required to make a spec harness work and how that should influence our code.
 * We learned how to refer to methods in other classes and how calling up the class chain works.
-* We've learned to put the basic pillars of OOP to use.
+* We've learned to put the basic pillars of OOP to use in a medium-scale project.
+* We're constantly learning how GitHub/Git works. 
