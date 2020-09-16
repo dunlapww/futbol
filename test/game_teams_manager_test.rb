@@ -98,11 +98,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 1, @game_teams_manager.most_fewest_goals_scored("14", :min)
   end
 
-  def test_it_can_get_highest_home_team
-    @stat_tracker.stubs(:fetch_team_identifier).returns("DC United")
-    assert_equal "DC United", @game_teams_manager.highest_lowest_scoring_team("home",:max_by)
-  end
-
   def test_it_can_get_highest_lowest_away_home_teams
     #highest scoring home team
     assert_equal "DC United",
