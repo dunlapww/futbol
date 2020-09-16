@@ -1,5 +1,4 @@
 require 'csv'
-require_relative './stat_tracker'
 require_relative './game_team'
 require_relative './manageable'
 
@@ -28,27 +27,6 @@ class GameTeamsManager
       game_ids.include?(game.game_id)
     end
   end
-
-  def team_tackles(season)
-    @game_teams_manager.team_tackles(season)
-  end
-
-  def most_fewest_tackles(season, method_arg)
-    @game_teams_manager.most_fewest_tackles(season, method_arg)
-  end
-
-  # def team_tackles(season)
-  #   game_teams_by_season(season).reduce(Hash.new(0)) do |team_season_tackles, game|
-  #     team_season_tackles[game.team_id] += game.tackles
-  #     team_season_tackles
-  #   end
-  # end
-  #
-  # def most_fewest_tackles(season, method_arg)
-  #   @stat_tracker.fetch_team_identifier(team_tackles(season).method(method_arg).call do |team|
-  #     team.last
-  #   end.first)
-  # end
 
   def games_by_team(team_id)
     @game_teams.select do |game|

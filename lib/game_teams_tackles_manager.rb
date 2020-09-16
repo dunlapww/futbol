@@ -1,8 +1,3 @@
-require 'csv'
-require_relative './stat_tracker'
-require_relative './game_teams_manager'
-require_relative './manageable'
-
 class GameTeamsTacklesManager < GameTeamsManager
   attr_reader :game_teams, :stat_tracker
 

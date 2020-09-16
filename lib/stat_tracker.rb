@@ -1,9 +1,9 @@
 require "csv"
+require_relative './manageable'
 require_relative "./teams_manager"
 require_relative "./games_manager"
 require_relative "./game_teams_manager"
 require_relative "./game_teams_tackles_manager"
-require_relative './manageable'
 
 class StatTracker
   include Manageable
