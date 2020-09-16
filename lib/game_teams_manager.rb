@@ -175,7 +175,7 @@ class GameTeamsManager
 
   def games_containing_team
     @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
-      games_by_team[game.team_id.to_s] += 1
+      games_by_team[game.team_id] += 1
       games_by_team
     end
   end
