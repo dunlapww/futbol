@@ -1,10 +1,14 @@
 require "./test/test_helper"
-require "./lib/game_teams_manager"
 require "./lib/game_teams_tackles_manager"
 
-class GameTeamsTacklesManager
+class GameTeamsTacklesManagerTest < Minitest::Test
 
-  def test_it_can_show_total_tackles_per_team_per_season
+  def setup
+    @stat_tracker = StatTracker.from_csv
+    @game_teams_tackles_manager = @stat_tracker.game_teams_tackles_manager
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season_aaa
     expected = {
       "1" => 30,
       "4" => 108,
@@ -16,11 +20,11 @@ class GameTeamsTacklesManager
   end
 
   def test_it_can_determine_team_with_most_season_tackles
-    assert_equal "Chicago Fire", @game_teams_tackles_manager.most_fewest_tackles("20122013", :max_by)
+    assert_equal "Chicago Fire", @game_teams_tackles_manager.most_tackles("20122013")
   end
 
   def test_it_can_determine_team_with_fewest_season_tackles
-    assert_equal "DC United", @game_teams_tackles_manager.most_fewest_tackles("20122013", :min_by)
+    assert_equal "DC United", @game_teams_tackles_manager.fewest_tackles("20122013")
   end
 
 end
