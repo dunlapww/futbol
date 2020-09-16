@@ -19,14 +19,8 @@ class GamesManager
     end
   end
 
-  def lowest_total_score
-    @games.min_by do |game|
-      game.total_game_score
-    end.total_game_score
-  end
-
-  def highest_total_score
-    @games.max_by do |game|
+  def total_score(method_arg)
+    @games.method(method_arg).call do |game|
       game.total_game_score
     end.total_game_score
   end
@@ -38,16 +32,9 @@ class GamesManager
     ratio(ties, total_games)
   end
 
-  def percentage_home_wins
+  def percentage_wins(method_arg)
     wins = @games.count do |game|
-      game.home_is_winner?
-    end
-    ratio(wins, total_games)
-  end
-
-  def percentage_visitor_wins
-    wins = @games.count do |game|
-      game.visitor_is_winner?
+      game.method(method_arg).call
     end
     ratio(wins, total_games)
   end
@@ -94,26 +81,15 @@ class GamesManager
     count
   end
 
-  def team_wins_as_home(team_id, season)
+  def team_wins_as(team_id, season, method_arg1, method_arg2)
     season_group[season].find_all do |game|
-      (game.home_team_id == team_id) && (game.home_is_winner?)
-    end.count
-  end
-
-  def team_wins_as_away(team_id, season)
-    season_group[season].find_all do |game|
-      (game.away_team_id == team_id) && (game.visitor_is_winner?)
+      (game.method(method_arg1).call == team_id) && (game.method(method_arg2).call)
     end.count
   end
 
   def total_team_wins(team_id, season)
-    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
-  end
-
-  def total_team_games_per_season(team_id, season)
-    season_group[season].find_all do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end.count
+    team_wins_as(team_id, season, :home_team_id, :home_is_winner?) +
+    team_wins_as(team_id, season, :away_team_id, :visitor_is_winner?)
   end
 
   def season_win_percentage(team_id, season)
@@ -124,6 +100,12 @@ class GamesManager
     season_group.keys.sort
   end
 
+  def total_team_games_per_season(team_id, season)
+    season_group[season].find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
+  end
+
   def seasons_win_percentages_by_team(team_id)
     all_seasons.reduce({}) do |collector, season|
       collector[season] = season_win_percentage(team_id, season)
@@ -131,14 +113,8 @@ class GamesManager
     end
   end
 
-  def best_season(team_id)
-    seasons_win_percentages_by_team(team_id).max_by do |season, percent|
-      percent
-    end[0]
-  end
-
-  def worst_season(team_id)
-    seasons_win_percentages_by_team(team_id).min_by do |season, percent|
+  def worst_or_best_season(team_id, method_arg)
+    seasons_win_percentages_by_team(team_id).method(method_arg).call do |season, percent|
       percent
     end[0]
   end

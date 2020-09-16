@@ -10,8 +10,6 @@ class Game
               :home_team_id,
               :away_goals,
               :home_goals
-              # :venue,
-              # :venue_link
 
   def initialize(data)
     @game_id = data[:game_id]
@@ -22,8 +20,6 @@ class Game
     @home_team_id = data[:home_team_id]
     @away_goals = data[:away_goals].to_i
     @home_goals = data[:home_goals].to_i
-    # @venue = data[:venue]
-    # @venue_link = data[:venue_link]
   end
 
   def total_game_score
@@ -38,7 +34,6 @@ class Game
     @away_goals > @home_goals
   end
 
-  #this method will return 'tie' if tie
   def winner_id
     return @home_team_id if home_is_winner?
     return @away_team_id if visitor_is_winner?
