@@ -12,11 +12,11 @@
 * The file structure goes like this:
 
 ```
-              StatTracker                     >
-      /            |             \            > -> Manageable(module)
-GamesManager  TeamsManager  GameTeamsManager  >
-    |              |             /         \
-   Game           Team    GTTacklesManager  GTWinsManager
+              StatTracker                                 >
+      /            |               \                      > -> Manageable(module)
+GamesManager  TeamsManager        GameTeamsManager        >
+    |              |             /         \          \
+   Game           Team    TacklesManager  WinsManager   GoalsManager
 
                                    |
                                 GameTeam
