@@ -81,29 +81,29 @@ class GameTeamsManager
     end
   end
 
-  def average_win_percentage_by(hash)
-    hash.map do |group_value, gameteams|
-      [group_value, ratio(total_wins(gameteams), total_game_teams(gameteams))]
-    end.to_h
-  end
+  # def average_win_percentage_by(hash)
+  #   hash.map do |group_value, gameteams|
+  #     [group_value, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+  #   end.to_h
+  # end
 
-  def highest_lowest_win_percentage(hash, method_arg)
-    average_win_percentage_by(hash).method(method_arg).call do |group, win_perc|
-      win_perc
-    end[0]
-  end
+  # def highest_lowest_win_percentage(hash, method_arg)
+  #   average_win_percentage_by(hash).method(method_arg).call do |group, win_perc|
+  #     win_perc
+  #   end[0]
+  # end
 
-  def favorite_opponent(team_id)
-    hash = game_teams_by_opponent(team_id)
-    fave_opp_id = highest_lowest_win_percentage(hash, :max_by)
-    @stat_tracker.fetch_team_identifier(fave_opp_id)
-  end
-
-  def rival(team_id)
-    hash = game_teams_by_opponent(team_id)
-    rival_id = highest_lowest_win_percentage(hash, :min_by)
-    @stat_tracker.fetch_team_identifier(rival_id)
-  end
+  # def favorite_opponent(team_id)
+  #   hash = game_teams_by_opponent(team_id)
+  #   fave_opp_id = highest_lowest_win_percentage(hash, :max_by)
+  #   @stat_tracker.fetch_team_identifier(fave_opp_id)
+  # end
+  #
+  # def rival(team_id)
+  #   hash = game_teams_by_opponent(team_id)
+  #   rival_id = highest_lowest_win_percentage(hash, :min_by)
+  #   @stat_tracker.fetch_team_identifier(rival_id)
+  # end
 
   def game_ids_per_season(season)
     @stat_tracker.season_group[season].map do |games|
@@ -147,11 +147,11 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(most_accurate[0])
   end
 
-  def total_wins(game_teams)
-    game_teams.count do |gameteam|
-      gameteam.result == "WIN"
-    end
-  end
+  # def total_wins(game_teams)
+  #   game_teams.count do |gameteam|
+  #     gameteam.result == "WIN"
+  #   end
+  # end
 
   def filter_by_team_id(team_id)
     @game_teams.select do |gameteam|

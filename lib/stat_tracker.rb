@@ -4,16 +4,22 @@ require_relative "./teams_manager"
 require_relative "./games_manager"
 require_relative "./game_teams_manager"
 require_relative "./game_teams_tackles_manager"
+require_relative "./game_teams_wins_manager"
 
 class StatTracker
   include Manageable
-  attr_reader :teams_manager, :games_manager, :game_teams_manager, :game_teams_tackles_manager
+  attr_reader :teams_manager,
+              :games_manager,
+              :game_teams_manager,
+              :game_teams_tackles_manager,
+              :game_teams_wins_manager
 
   def initialize(locations)
     @teams_manager = TeamsManager.new(load_csv(locations[:teams]), self)
     @games_manager = GamesManager.new(load_csv(locations[:games]), self)
     @game_teams_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
     @game_teams_tackles_manager = GameTeamsTacklesManager.new(load_csv(locations[:game_teams]), self)
+    @game_teams_wins_manager = GameTeamsWinsManager.new(load_csv(locations[:game_teams]), self)
   end
 
   def self.from_csv(locations = {games: './data/games_sample.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
@@ -102,12 +108,12 @@ class StatTracker
 
   def winningest_coach(season)
     coach_hash = @game_teams_manager.coach_game_teams(season)
-    @game_teams_manager.highest_lowest_win_percentage(coach_hash,:max_by)
+    @game_teams_wins_manager.highest_lowest_win_percentage(coach_hash,:max_by)
   end
 
   def worst_coach(season)
     coach_hash = @game_teams_manager.coach_game_teams(season)
-    @game_teams_manager.highest_lowest_win_percentage(coach_hash,:min_by)
+    @game_teams_wins_manager.highest_lowest_win_percentage(coach_hash,:min_by)
   end
 
   def most_tackles(season)
@@ -131,7 +137,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    ratio(@game_teams_manager.total_wins(@game_teams_manager.filter_by_team_id(team_id)), @game_teams_manager.total_game_teams(@game_teams_manager.filter_by_team_id(team_id)))
+    ratio(@game_teams_wins_manager.total_wins(@game_teams_manager.filter_by_team_id(team_id)), @game_teams_manager.total_game_teams(@game_teams_manager.filter_by_team_id(team_id)))
   end
 
   def worst_season(team_id)
@@ -151,10 +157,10 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    @game_teams_manager.favorite_opponent(team_id)
+    @game_teams_wins_manager.favorite_opponent(team_id)
   end
 
   def rival(team_id)
-    @game_teams_manager.rival(team_id)
+    @game_teams_wins_manager.rival(team_id)
   end
 end

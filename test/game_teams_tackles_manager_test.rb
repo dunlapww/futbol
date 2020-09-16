@@ -8,7 +8,7 @@ class GameTeamsTacklesManagerTest < Minitest::Test
     @game_teams_tackles_manager = @stat_tracker.game_teams_tackles_manager
   end
 
-  def test_it_can_show_total_tackles_per_team_per_season_aaa
+  def test_it_can_show_total_tackles_per_team_per_season
     expected = {
       "1" => 30,
       "4" => 108,
