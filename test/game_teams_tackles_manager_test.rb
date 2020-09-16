@@ -1,5 +1,4 @@
 require "./test/test_helper"
-require "./lib/game_teams_tackles_manager"
 
 class GameTeamsTacklesManagerTest < Minitest::Test
 

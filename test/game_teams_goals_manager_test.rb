@@ -1,5 +1,4 @@
 require "./test/test_helper"
-require "./lib/game_teams_goals_manager"
 
 class GameTeamsGoalsManagerTest < Minitest::Test
 
