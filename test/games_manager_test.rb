@@ -109,10 +109,10 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    assert_equal 28.57, @games_manager.season_win_percentage("1", "20142015")
-    assert_equal 42.86, @games_manager.season_win_percentage("4", "20142015")
-    assert_equal 66.67, @games_manager.season_win_percentage("6", "20142015")
-    assert_equal 42.86, @games_manager.season_win_percentage("26", "20142015")
+    assert_equal 0.29, @games_manager.season_win_percentage("1", "20142015")
+    assert_equal 0.43, @games_manager.season_win_percentage("4", "20142015")
+    assert_equal 0.67, @games_manager.season_win_percentage("6", "20142015")
+    assert_equal 0.43, @games_manager.season_win_percentage("26", "20142015")
   end
 
   def test_it_can_return_array_of_seasons
@@ -122,44 +122,44 @@ class GamesManagerTest < Minitest::Test
 
   def test_it_can_return_a_hash_with_teams_season_win_percentages
     expected1 = {
-        "20122013" => 100.0,
-        "20132014" => 40.0,
-        "20142015" => 28.57,
-        "20152016" => 50.0,
-        "20162017" => 25.0,
-        "20172018" => 33.33
+        "20122013" => 1.0,
+        "20132014" => 0.4,
+        "20142015" => 0.29,
+        "20152016" => 0.5,
+        "20162017" => 0.25,
+        "20172018" => 0.33
       }
     expected2 = {
-        "20122013" => 25.0,
-        "20132014" => 40.0,
-        "20142015" => 42.86,
-        "20152016" => 33.33,
+        "20122013" => 0.25,
+        "20132014" => 0.4,
+        "20142015" => 0.43,
+        "20152016" => 0.33,
         "20162017" => 0.0,
         "20172018" => 0.0
       }
     expected3 = {
-        "20122013" => 100.0,
-        "20132014" => 50.0,
-        "20142015" => 66.67,
-        "20152016" => 66.67,
-        "20162017" => 50.0,
-        "20172018" => 50.0
+        "20122013" => 1.0,
+        "20132014" => 0.5,
+        "20142015" => 0.67,
+        "20152016" => 0.67,
+        "20162017" => 0.5,
+        "20172018" => 0.5
       }
     expected4 = {
         "20122013" => 0.0,
-        "20132014" => 25.0,
+        "20132014" => 0.25,
         "20142015" => 0.0,
-        "20152016" => 100.0,
-        "20162017" => 60.0,
-        "20172018" => 60.0
+        "20152016" => 1.0,
+        "20162017" => 0.6,
+        "20172018" => 0.6
       }
     expected5 = {
         "20122013" => 0.0,
-        "20132014" => 33.33,
-        "20142015" => 42.86,
+        "20132014" => 0.33,
+        "20142015" => 0.43,
         "20152016" => 0.0,
-        "20162017" => 50.0,
-        "20172018" => 75.0
+        "20162017" => 0.5,
+        "20172018" => 0.75
       }
     assert_equal expected1, @games_manager.seasons_win_percentages_by_team("1")
     assert_equal expected2, @games_manager.seasons_win_percentages_by_team("4")
