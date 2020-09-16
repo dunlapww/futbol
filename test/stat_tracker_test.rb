@@ -132,8 +132,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stats.most_accurate_team("20132014")
   end
 
-  def
-     test_it_can_get_least_accurate_team_for_season
+  def test_it_can_get_least_accurate_team_for_season
     assert_equal "Atlanta United", @stats.least_accurate_team("20132014")
   end
 
@@ -142,11 +141,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_calc_average_win_percentage
     assert_equal 0.32, @stats.average_win_percentage("4")
   end
-
-  # def test_it_can_return_array_of_seasons
-  #   expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
-  #   assert_equal expected, @stats.all_seasons
-  # end
 
   def test_it_can_see_team_info
     expected1 = {

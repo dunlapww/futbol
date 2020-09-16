@@ -22,9 +22,8 @@ class GameTeamsManager
   end
 
   def game_teams_by_season(season)
-    game_ids = @stat_tracker.fetch_game_ids_by_season(season)
-    @game_teams.find_all do |game|
-      game_ids.include?(game.game_id)
+    @game_teams.select do |gameteam|
+      gameteam.game_id[0..3] == season[0..3]
     end
   end
 
@@ -32,16 +31,6 @@ class GameTeamsManager
     @game_teams.select do |game|
       game.team_id == team_id
     end
-  end
-
-  def team_goals_by_game(team_id)
-    games_by_team(team_id).map do |game|
-      game.goals
-    end
-  end
-
-  def most_fewest_goals_scored(team_id, method_arg)
-    team_goals_by_game(team_id).method(method_arg).call.to_i
   end
 
   def home_or_away_games(hoa)
@@ -54,19 +43,6 @@ class GameTeamsManager
     home_or_away_games(hoa).group_by do |game_team|
       game_team.team_id
     end
-  end
-
-  def total_score(filtered_game_teams = @game_teams)
-    filtered_game_teams.reduce(0) do |sum, game_team|
-      sum += game_team.goals
-    end
-  end
-
-  def highest_lowest_scoring_team(hoa,method_arg)
-    hoa_team_id = hoa_games_by_team_id(hoa).method(method_arg).call do |team_id, details|
-      avg_score(details)
-    end[0]
-    @stat_tracker.fetch_team_identifier(hoa_team_id)
   end
 
   def coach_game_teams(season)
@@ -95,32 +71,10 @@ class GameTeamsManager
     end
   end
 
-  def shots_per_team_id(season)
-    game_search = find_game_teams(game_ids_per_season(season))
-    game_search.reduce(Hash.new(0)) do |results, game|
-      results[game.team_id] += game.shots
-      results
+  def game_teams_by_team_id(season)
+    game_teams_by_season(season).group_by do |gameteam|
+      gameteam.team_id
     end
-  end
-
-  def season_goals(season)
-    specific_season = @stat_tracker.season_group[season]
-    specific_season.reduce(Hash.new(0)) do |season_goals, game|
-      season_goals[game.away_team_id.to_s] += game.away_goals
-      season_goals[game.home_team_id.to_s] += game.home_goals
-      season_goals
-    end
-  end
-
-  def shots_per_goal_per_season(season)
-    season_goals(season).merge(shots_per_team_id(season)) do |team_id, goals, shots|
-      ratio(shots, goals, 3)
-    end
-  end
-
-  def most_least_accurate_team(season, method_arg)
-    most_accurate = shots_per_goal_per_season(season).method(method_arg).call { |team, avg| avg}
-    @stat_tracker.fetch_team_identifier(most_accurate[0])
   end
 
   def filter_by_team_id(team_id)
@@ -141,19 +95,6 @@ class GameTeamsManager
       base[game.team_id] += game.goals
       base
     end
-  end
-
-  def average_scores_by_team
-    total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| ratio(scores, games_played, 3)}
-  end
-
-  def best_worst_offense(method_arg1)
-    team = average_scores_by_team.method(method_arg1).call {|id, average| average}
-    @stat_tracker.fetch_team_identifier(team[0])
-  end
-
-  def avg_score(filtered_game_teams = @game_teams)
-    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
   end
 
 end

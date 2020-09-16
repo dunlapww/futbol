@@ -17,13 +17,13 @@ class GameTeamsWinsManagerTest < Minitest::Test
     assert_equal 45, @game_teams_wins_manager.total_wins(@game_teams_wins_manager.game_teams)
   end
 
-  def test_it_can_see_highest_number_of_goals_by_team_in_a_game
-    assert_equal 4, @game_teams_wins_manager.most_fewest_goals_scored("1", :max)
-  end
-
-  def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
-    assert_equal 1, @game_teams_wins_manager.most_fewest_goals_scored("14", :min)
-  end
+  # def test_it_can_see_highest_number_of_goals_by_team_in_a_game
+  #   assert_equal 4, @game_teams_wins_manager.most_fewest_goals_scored("1", :max)
+  # end
+  #
+  # def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
+  #   assert_equal 1, @game_teams_wins_manager.most_fewest_goals_scored("14", :min)
+  # end
 
   def test_it_can_return_win_percentage_for_a_group
     hash = @game_teams_wins_manager.game_teams_by_opponent("6")
