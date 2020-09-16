@@ -1,5 +1,4 @@
 require "./test/test_helper"
-require "./lib/games_manager"
 
 class GamesManagerTest < Minitest::Test
 
@@ -13,11 +12,11 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_find_the_lowest_total_score
-    assert_equal 1, @games_manager.lowest_total_score
+    assert_equal 1, @games_manager.total_score(:min_by)
   end
 
   def test_it_can_find_the_highest_total_score
-    assert_equal 6, @games_manager.highest_total_score
+    assert_equal 6, @games_manager.total_score(:max_by)
   end
 
   def test_it_can_get_percentage_ties
@@ -25,11 +24,11 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_get_percentage_home_wins
-    assert_equal 0.55, @games_manager.percentage_home_wins
+    assert_equal 0.55, @games_manager.percentage_wins(:home_is_winner?)
   end
 
   def test_it_can_get_percentage_visitor_games_won
-    assert_equal 0.30, @games_manager.percentage_visitor_wins
+    assert_equal 0.30, @games_manager.percentage_wins(:visitor_is_winner?)
   end
 
   def test_it_can_count_total_games
@@ -78,19 +77,19 @@ class GamesManagerTest < Minitest::Test
     assert_equal expected, @games_manager.game_ids_by_season("20122013")
   end
 
-  def test_it_can_count_total_home_wins
-    assert_equal 1, @games_manager.team_wins_as_home("1", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_home("4", "20142015")
-    assert_equal 3, @games_manager.team_wins_as_home("6", "20142015")
-    assert_equal 0, @games_manager.team_wins_as_home("14", "20142015")
-    assert_equal 2, @games_manager.team_wins_as_home("26", "20142015")
+  def test_it_can_count_total_home_wins_aaa
+    assert_equal 1, @games_manager.team_wins_as("1", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("4", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 3, @games_manager.team_wins_as("6", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 0, @games_manager.team_wins_as("14", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 2, @games_manager.team_wins_as("26", "20142015", :home_team_id, :home_is_winner?)
   end
 
-  def test_it_can_count_total_away_wins
-    assert_equal 1, @games_manager.team_wins_as_away("1", "20142015")
-    assert_equal 2, @games_manager.team_wins_as_away("4", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_away("6", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_away("26", "20142015")
+  def test_it_can_count_total_away_wins_bbb
+    assert_equal 1, @games_manager.team_wins_as("1", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 2, @games_manager.team_wins_as("4", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("6", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("26", "20142015", :away_team_id, :visitor_is_winner?)
   end
 
   def test_it_can_count_total_number_of_wins_per_season
@@ -170,19 +169,19 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_return_a_teams_best_season
-    assert_equal "20122013", @games_manager.best_season("1")
-    assert_equal "20142015", @games_manager.best_season("4")
-    assert_equal "20122013", @games_manager.best_season("6")
-    assert_equal "20152016", @games_manager.best_season("14")
-    assert_equal "20172018", @games_manager.best_season("26")
+    assert_equal "20122013", @games_manager.worst_or_best_season("1", :max_by)
+    assert_equal "20142015", @games_manager.worst_or_best_season("4", :max_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("6", :max_by)
+    assert_equal "20152016", @games_manager.worst_or_best_season("14", :max_by)
+    assert_equal "20172018", @games_manager.worst_or_best_season("26", :max_by)
   end
 
   def test_it_can_return_a_teams_worst_season
-    assert_equal "20162017", @games_manager.worst_season("1")
-    assert_equal "20162017", @games_manager.worst_season("4")
-    assert_equal "20132014", @games_manager.worst_season("6")
-    assert_equal "20122013", @games_manager.worst_season("14")
-    assert_equal "20122013", @games_manager.worst_season("26")
+    assert_equal "20162017", @games_manager.worst_or_best_season("1", :min_by)
+    assert_equal "20162017", @games_manager.worst_or_best_season("4", :min_by)
+    assert_equal "20132014", @games_manager.worst_or_best_season("6", :min_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("14", :min_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("26", :min_by)
   end
 
   def test_it_can_get_game
