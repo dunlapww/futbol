@@ -38,11 +38,10 @@ class Game
     @away_goals > @home_goals
   end
 
-  #this method will return 'tie' if tie
   def winner_id
     return @home_team_id if home_is_winner?
     return @away_team_id if visitor_is_winner?
-    'tie'
+    "tie"
   end
 
   def get_opponent_id(team_id)

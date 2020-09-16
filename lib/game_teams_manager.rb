@@ -118,20 +118,6 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(rival_id)
   end
 
-  def game_ids_per_season(season)
-    @stat_tracker.season_group[season].map do |games|
-      games.game_id
-    end
-  end
-
-  def find_game_teams(game_ids)
-    game_ids.flat_map do |game_id|
-      @game_teams.find_all do |game|
-        game_id == game.game_id
-      end
-    end
-  end
-
   def game_teams_by_team_id(season)
     game_teams_by_season(season).group_by do |gameteam|
       gameteam.team_id
