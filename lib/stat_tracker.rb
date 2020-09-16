@@ -9,17 +9,13 @@ class StatTracker
   attr_reader :teams_manager, :games_manager, :game_teams_manager
 
   def initialize(locations)
-    load_managers(locations)
+    @teams_manager = TeamsManager.new(load_csv(locations[:teams]), self)
+    @games_manager = GamesManager.new(load_csv(locations[:games]), self)
+    @game_teams_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
   end
 
   def self.from_csv(locations = {games: './data/games_sample.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
     StatTracker.new(locations)
-  end
-
-  def load_managers(locations)
-    @teams_manager = TeamsManager.new(load_csv(locations[:teams]), self)
-    @games_manager = GamesManager.new(load_csv(locations[:games]), self)
-    @game_teams_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
   end
 
   def load_csv(path)
