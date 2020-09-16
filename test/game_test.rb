@@ -35,4 +35,16 @@ class GameTest < Minitest::Test
     assert_equal "4", @game_1.get_opponent_id("1")
   end
 
+  def test_it_can_determine_winner_id
+    @game_1.stubs(:home_is_winner?).returns(true)
+    @game_1.stubs(:visitor_is_winner?).returns(false)
+    assert_equal "4", @game_1.winner_id
+    @game_1.stubs(:home_is_winner?).returns(false)
+    @game_1.stubs(:visitor_is_winner?).returns(true)
+    assert_equal "1", @game_1.winner_id
+    @game_1.stubs(:home_is_winner?).returns(false)
+    @game_1.stubs(:visitor_is_winner?).returns(false)
+    assert_equal "tie", @game_1.winner_id
+  end
+
 end
