@@ -1,6 +1,4 @@
 require "./test/test_helper"
-require "./lib/game"
-require "mocha/minitest"
 
 class GameTest < Minitest::Test
 
