@@ -2,16 +2,18 @@ require "csv"
 require_relative "./teams_manager"
 require_relative "./games_manager"
 require_relative "./game_teams_manager"
+require_relative "./game_teams_tackles_manager"
 require_relative './manageable'
 
 class StatTracker
   include Manageable
-  attr_reader :teams_manager, :games_manager, :game_teams_manager
+  attr_reader :teams_manager, :games_manager, :game_teams_manager, :game_teams_tackles_manager
 
   def initialize(locations)
     @teams_manager = TeamsManager.new(load_csv(locations[:teams]), self)
     @games_manager = GamesManager.new(load_csv(locations[:games]), self)
     @game_teams_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
+    @game_teams_tackles_manager = GameTeamsTacklesManager.new(load_csv(locations[:game_teams]), self)
   end
 
   def self.from_csv(locations = {games: './data/games_sample.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
@@ -109,11 +111,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    @game_teams_manager.most_fewest_tackles(season, :max_by)
+    @game_teams_tackles_manager.most_tackles(season)
   end
 
   def fewest_tackles(season)
-    @game_teams_manager.most_fewest_tackles(season, :min_by)
+    @game_teams_tackles_manager.fewest_tackles(season)
   end
 
   def most_accurate_team(season)
